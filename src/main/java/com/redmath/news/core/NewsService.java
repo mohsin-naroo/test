@@ -25,13 +25,19 @@ public class NewsService {
     }
 
     public List<News> findAll(String title) {
-        logger.debug("findAll");
+        logger.debug("findAll: {}", title.replaceAll("[\r\n]", ""));
         return newsRepository.findByTitleLike(likeOpeator + title + likeOpeator);
     }
 
     public Optional<News> findById(Long id) {
-        logger.info("findById: {}, {}", id, "test");
-        return newsRepository.findById(id);
+        logger.info("findById: {}", id.toString().replaceAll("[\r\n]", ""));
+        Optional<News> news = newsRepository.findById(id);
+        if (news.isPresent()) {
+            logger.info("news found");
+        } else {
+            logger.info("news not found");
+        }
+        return news;
     }
 
     @Transactional

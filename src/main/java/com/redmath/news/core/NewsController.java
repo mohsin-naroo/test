@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,7 @@ public class NewsController {
     }
 
     @GetMapping
-    public ResponseEntity<List<News>> findAll(@RequestParam(name = "title") String title) {
+    public ResponseEntity<List<News>> findAll(@RequestParam(name = "search") String title) {
         return ResponseEntity.ok(newsService.findAll(title));
     }
 
@@ -37,6 +38,7 @@ public class NewsController {
         return ResponseEntity.ok(news.get());
     }
 
+    @PreAuthorize("hasAuthority('REPORTER')")
     @PostMapping
     public ResponseEntity<News> create(@RequestBody News news) {
         News created = newsService.create(news);
@@ -45,4 +47,6 @@ public class NewsController {
         }
         return ResponseEntity.status(HttpStatus.CONFLICT).build();
     }
+
+    // @PreAuthorize("hasAuthority('EDITOR')")
 }
