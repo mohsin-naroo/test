@@ -4,12 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.redmath.workshop</groupId>
-  <artifactId>news</artifactId>
+  <artifactId>news-ui</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-
-  <modules>
-    <module>news-api</module>
-    <module>news-ui</module>
-  </modules>
 </project>
