@@ -36,17 +36,21 @@ public class WebSecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        CookieCsrfTokenRepository csrfRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
-        csrfRepository.setCookiePath("/");
         http.formLogin(config -> config.successHandler((request, response, auth) -> {
         }));
+
         http.logout(config -> config.logoutSuccessHandler((request, response, auth) -> {
         }));
+
+        CookieCsrfTokenRepository csrfRepository = CookieCsrfTokenRepository.withHttpOnlyFalse();
+        csrfRepository.setCookiePath("/");
         http.csrf(config -> config.csrfTokenRepository(csrfRepository)
                 .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()));
+
         http.authorizeHttpRequests(config -> config
                 .requestMatchers(AntPathRequestMatcher.antMatcher("/actuator/**")).hasAnyAuthority("ACTUATOR")
                 .anyRequest().authenticated());
+
         return http.build();
     }
 }

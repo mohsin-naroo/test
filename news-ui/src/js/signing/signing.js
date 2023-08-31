@@ -7,7 +7,7 @@
 
         self.login = function() {
             $http.post('news/login',
-                'username=' + self.user.name + '&password=' + self.user.password + '&remember-me=true', {
+                'username=' + self.user.name + '&password=' + self.user.password, {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
                 }

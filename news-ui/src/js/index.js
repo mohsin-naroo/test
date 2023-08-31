@@ -15,10 +15,7 @@
         }).when('/search', {
             templateUrl: 'news/search.html',
             controller: 'NewsController as $ctrl'
-        }).when('/', {
-            templateUrl: 'news/search.html',
-            controller: 'NewsController as $ctrl'
-        }).otherwise('/');
+        }).otherwise('/search');
     }
 
     angular.module('news-fe', ['ngRoute', 'ngResource', 'ng'])
