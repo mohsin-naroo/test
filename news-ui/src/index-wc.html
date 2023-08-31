@@ -25,14 +25,15 @@
 
     <script lang="javascript" src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script lang="javascript">
-        customElements.define("hello-world", class extends HTMLElement {
+        class HelloWorld extends HTMLElement {
             constructor() {
                 super();
                 const template = document.getElementById("template123").content;
                 const shadowRoot = this.attachShadow({mode: "open"});
                 shadowRoot.appendChild(template.cloneNode(true));
             }
-        });
+        }
+        customElements.define("hello-world", HelloWorld);
         //var testTemplate = document.getElementById("template123").content;
         //document.getElementById("p123").appendChild(testTemplate.cloneNode(true));
         //document.getElementById("p456").appendChild(testTemplate.cloneNode(true));
