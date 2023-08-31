@@ -1,4 +1,4 @@
-package com.redmath.workshop.news;
+package com.github.workshop.news;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,8 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import com.redmath.workshop.user.User;
-import com.redmath.workshop.user.UserService;
+import com.github.workshop.user.User;
+import com.github.workshop.user.UserService;
 
 @Service
 public class NewsService {
@@ -46,7 +46,7 @@ public class NewsService {
         } else if (size < pageSizeMin) {
             size = pageSizeMin;
         }
-        logger.debug("News search with page: {}, size: {}, title: {}", page, size, title);
+        logger.debug("News search with page: {}, size: {}, title: {}", page, size, title.replaceAll("[\r\n]", ""));
         Pageable pageable = PageRequest.of(page, size);
         if (title.isEmpty() || title.isBlank()) {
             return repository.findByOrderByIdDesc(pageable).getContent();

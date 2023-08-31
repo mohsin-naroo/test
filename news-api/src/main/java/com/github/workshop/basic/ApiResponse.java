@@ -1,4 +1,4 @@
-package com.redmath.workshop.basic;
+package com.github.workshop.basic;
 
 public class ApiResponse<T> {
 

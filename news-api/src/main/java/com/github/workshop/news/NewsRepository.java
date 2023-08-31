@@ -1,4 +1,4 @@
-package com.redmath.workshop.news;
+package com.github.workshop.news;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

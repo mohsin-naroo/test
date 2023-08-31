@@ -1,4 +1,4 @@
-package com.redmath.workshop.config;
+package com.github.workshop.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

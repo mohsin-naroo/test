@@ -1,4 +1,4 @@
-package com.redmath.workshop.news;
+package com.github.workshop.news;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.redmath.workshop.basic.ApiResponse;
+import com.github.workshop.basic.ApiResponse;
 
 @RestController
 @RequestMapping("/api/v1/news")

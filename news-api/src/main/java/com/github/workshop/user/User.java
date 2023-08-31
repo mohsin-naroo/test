@@ -1,4 +1,4 @@
-package com.redmath.workshop.user;
+package com.github.workshop.user;
 
 import java.time.LocalDateTime;
 

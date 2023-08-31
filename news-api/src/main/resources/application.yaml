@@ -37,6 +37,6 @@ logging:
   level:
     sql: debug
     web: debug
-    '[com.redmath.workshop]': debug
+    '[com.github.workshop]': debug
 
 spring.profiles.include: local
