@@ -16,8 +16,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 public class WebSecurityConfiguration {
 
-    @Value("${spring.web.security.ignored:/error,/ui/**,/favicon.ico}")
-    private String[] ignored = { "/error", "/ui/**", "/favicon.ico" };
+    @Value("${spring.web.security.ignored:/error,/ui/**,/favicon.ico,/swagger-ui/**,/v3/api-docs,/v3/api-docs/**}")
+    private String[] ignored = { "/error", "/ui/**", "/favicon.ico", "/swagger-ui/**", "/v3/api-docs",
+            "/v3/api-docs/**" };
 
     @Value("${spring.web.security.ignored.get:/api/v1/news}")
     private String[] ignoredGet = { "/api/v1/news" };
