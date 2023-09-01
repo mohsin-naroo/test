@@ -21,6 +21,12 @@ public class NewsControllerTest {
     private MockMvc mockMvc;
 
     @Test
+    public void testNews() throws Exception {
+        testNewsGet();
+        testNewsPost();
+        testNewsDelete();
+    }
+
     public void testNewsGet() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/news?title=%e 4%"))
                 .andDo(MockMvcResultHandlers.print())
@@ -34,8 +40,42 @@ public class NewsControllerTest {
                 .with(testUser("reporter", "REPORTER")))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
 
-        testNewsPost();
+    public void testNewsPost() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/news")
+                .with(testUser("reporter", "REPORTER"))
+                .with(SecurityMockMvcRequestPostProcessors.csrf())
+                .contentType("application/json")
+                .content("{\"id\":1,\"title\":\"title 1\",\"details\":\"details 1\",\"tags\":\"tags 1\"}"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isConflict());
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/news")
+                .with(testUser("reporter", "REPORTER"))
+                .with(SecurityMockMvcRequestPostProcessors.csrf())
+                .contentType("application/json")
+                .content("{\"title\":\"title 456\",\"details\":\"details 456\",\"tags\":\"tags 456\"}"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content.id", Matchers.notNullValue()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content.title", Matchers.is("title 456")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content.details", Matchers.is("details 456")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content.tags", Matchers.is("tags 456")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content.reportedAt", Matchers.notNullValue()));
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/news/2")
+                .with(testUser("reporter", "REPORTER"))
+                .with(SecurityMockMvcRequestPostProcessors.csrf())
+                .contentType("application/json")
+                .content("{\"title\":\"title 22\",\"details\":\"details 22\",\"tags\":\"tags 22\"}"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content.id", Matchers.is(2)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content.title", Matchers.is("title 22")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content.details", Matchers.is("details 22")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content.tags", Matchers.is("tags 22")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.content.reportedAt", Matchers.notNullValue()));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/news"))
                 .andDo(MockMvcResultHandlers.print())
@@ -62,27 +102,23 @@ public class NewsControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.content.reportedAt", Matchers.notNullValue()));
     }
 
-    public void testNewsPost() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/news")
+    public void testNewsDelete() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/v1/news/1")
+                .with(testUser("editor", "EDITOR"))
+                .with(SecurityMockMvcRequestPostProcessors.csrf()))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/news/1")
+                .with(testUser("reporter", "REPORTER")))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/news/1")
                 .with(testUser("reporter", "REPORTER"))
                 .with(SecurityMockMvcRequestPostProcessors.csrf())
                 .contentType("application/json")
-                .content("{\"id\":1,\"title\":\"title 1\",\"details\":\"details 1\",\"tags\":\"tags 1\"}"))
+                .content("{\"title\":\"title 11\",\"details\":\"details 11\",\"tags\":\"tags 11\"}"))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isConflict());
-
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/news")
-                .with(testUser("reporter", "REPORTER"))
-                .with(SecurityMockMvcRequestPostProcessors.csrf())
-                .contentType("application/json")
-                .content("{\"title\":\"title 456\",\"details\":\"details 456\",\"tags\":\"tags 456\"}"))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.content.id", Matchers.notNullValue()))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.content.title", Matchers.is("title 456")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.content.details", Matchers.is("details 456")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.content.tags", Matchers.is("tags 456")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.content.reportedAt", Matchers.notNullValue()));
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
     private RequestPostProcessor testUser(String userName, String authoriy) {
