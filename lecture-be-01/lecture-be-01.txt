@@ -1,0 +1,13 @@
+# lecture-be-01
+01. spring boot hello world static html using https://start.spring.io/
+02. performance / latency in web request processing: device -> modem/gateway -> isp -> load balancer -> application server
+03. performance, throughput, scalability (stateless) <--> network, cpu, i/o
+04. spring boot hello world using jdbc
+05. load balancer -> application server -> database
+06. virtual machine vs container (docker, docker compose)
+07. database primary / secondary, read only instance 
+
+08. sts: spring tools suite ide
+09. git: version control, team development, ~/.gitconfig, .gitignore
+10. maven: pom.xml,~/.m2/repository, settings.xml
+11. mvn clean verify & Dockerfile
