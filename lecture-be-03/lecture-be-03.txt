@@ -1,0 +1,9 @@
+# lecture-be-03
+
+01. spring boot starter security / authentication and authorization
+02. default user/password/roles
+03. custom user service
+04. method level security
+05. owasp(sql injection, csrf, xss, log forging)
+06. @Cacheable, @Async, @Scheduled
+07. restTemplate
