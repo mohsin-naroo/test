@@ -5,11 +5,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+@EnableMethodSecurity
 @Configuration
 public class ApiSecurityConfiguration {
 
@@ -18,6 +23,15 @@ public class ApiSecurityConfiguration {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
+        // return new WebSecurityCustomizer() {
+        // @Override
+        // public void customize(WebSecurity web) {
+        // for (String location : ignored) {
+        // web.ignoring().requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.GET,
+        // location));
+        // }
+        // }
+        // };
         return web -> {
             for (String location : ignored) {
                 web.ignoring().requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.GET, location));
@@ -28,8 +42,14 @@ public class ApiSecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.formLogin(Customizer.withDefaults());
-        http.authorizeHttpRequests(config -> config.anyRequest().authenticated());
-        http.csrf(csrf -> csrf.disable());
+        http.authorizeHttpRequests(config -> config
+                // .requestMatchers(HttpMethod.POST, "/api/v1/news").hasAnyAuthority("admin",
+                // "reporter")
+                // .requestMatchers(HttpMethod.PUT, "/api/v1/news/**").hasAnyAuthority("admin",
+                // "editor")
+                .anyRequest().authenticated());
+        http.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .sessionAuthenticationStrategy(new NullAuthenticatedSessionStrategy()));
         return http.build();
     }
 }

@@ -1,4 +1,5 @@
 # lecture-be-01
+
 01. spring boot hello world static html using https://start.spring.io/
 02. performance / latency in web request processing: device -> modem/gateway -> isp -> load balancer -> application server
 03. performance, throughput, scalability (stateless) <--> network, cpu, i/o

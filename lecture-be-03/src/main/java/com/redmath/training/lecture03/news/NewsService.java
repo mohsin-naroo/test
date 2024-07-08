@@ -38,4 +38,14 @@ public class NewsService {
         news.setReportedAt(LocalDateTime.now());
         return newsRepository.save(news);
     }
+
+    public Optional<News> update(Long newsId, News news) {
+        Optional<News> existing = newsRepository.findById(newsId);
+        if (existing.isPresent()) {
+            existing.get().setTitle(news.getTitle());
+            existing.get().setDetails(news.getDetails());
+            existing = Optional.of(newsRepository.save(existing.get()));
+        }
+        return existing;
+    }
 }

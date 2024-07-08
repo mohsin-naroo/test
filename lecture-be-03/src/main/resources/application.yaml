@@ -10,11 +10,16 @@ spring:
     hibernate:
       ddl-auto: none
     open-in-view: false
-#  security:
-#    user:
-#      name: test
-#      password: test
+  security:
+    user:
+      name: test
+      password: test
+      roles: REPORTER,EDITOR,ADMIN
 
 api:
   security:
-    ignored: /api/v1/news,/api/v1/news/**
+    ignored: /api/v1/news,/api/v1/news/**,/swagger-ui/**,/v3/api-docs,/v3/api-docs/**
+
+logging:
+  level:
+    '[org.springframework.security]': trace

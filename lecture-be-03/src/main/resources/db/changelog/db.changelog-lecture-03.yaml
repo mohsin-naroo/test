@@ -9,6 +9,7 @@ databaseChangeLog:
         - column:
             name: user_id
             type: bigint
+#            autoIncrement: true
             constraints:
               nullable: false
         - column:
@@ -27,6 +28,17 @@ databaseChangeLog:
         tableName: users
         columnNames: user_id
         constraintName: users_pk
+    - addUniqueConstraint:
+        tableName: users
+        columnNames: username
+        constraintName: users_uk
+#    - addForeignKeyConstraint:
+#        baseTableName: news
+#        baseColumnNames: reported_by
+#        constraintName: news_fk
+#        referencedTableName: users
+#        referencedColumnNames: username
+   
 - changeSet:
     id: data-lecture-be-02
     author: news team
@@ -46,6 +58,42 @@ databaseChangeLog:
         - column:
             name: roles
             value: admin
+        - column:
+            name: created_at
+            value: '2000-01-01T12:00:00'
+    - insert:
+        tableName: users
+        columns:
+        - column:
+            name: user_id
+            value: '456'
+        - column:
+            name: username
+            value: reporter
+        - column:
+            name: password
+            value: '{bcrypt}$2a$12$diheMtyeAeA8iBeVx.prq.jeVWuRWrtmlnAwcS7bbLbEJp/EtulPW'
+        - column:
+            name: roles
+            value: reporter
+        - column:
+            name: created_at
+            value: '2000-01-01T12:00:00'
+    - insert:
+        tableName: users
+        columns:
+        - column:
+            name: user_id
+            value: '789'
+        - column:
+            name: username
+            value: editor
+        - column:
+            name: password
+            value: '{bcrypt}$2a$12$diheMtyeAeA8iBeVx.prq.jeVWuRWrtmlnAwcS7bbLbEJp/EtulPW'
+        - column:
+            name: roles
+            value: editor
         - column:
             name: created_at
             value: '2000-01-01T12:00:00'
