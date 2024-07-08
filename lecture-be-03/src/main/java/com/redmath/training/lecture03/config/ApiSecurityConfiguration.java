@@ -1,6 +1,8 @@
 package com.redmath.training.lecture03.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -12,14 +14,19 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+@EnableConfigurationProperties(value = { ApiProperties.class })
 @EnableMethodSecurity
 @Configuration
 public class ApiSecurityConfiguration {
 
     @Value("${api.security.ignored}")
     private String[] ignored;
+
+    @Autowired
+    private ApiProperties props;
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
@@ -33,7 +40,7 @@ public class ApiSecurityConfiguration {
         // }
         // };
         return web -> {
-            for (String location : ignored) {
+            for (String location : props.getIgnored()) {
                 web.ignoring().requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.GET, location));
             }
         };
@@ -49,7 +56,9 @@ public class ApiSecurityConfiguration {
                 // "editor")
                 .anyRequest().authenticated());
         http.csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .sessionAuthenticationStrategy(new NullAuthenticatedSessionStrategy()));
+                .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler())
+        // .sessionAuthenticationStrategy(new NullAuthenticatedSessionStrategy())
+        );
         return http.build();
     }
 }

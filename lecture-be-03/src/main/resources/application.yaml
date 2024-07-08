@@ -18,7 +18,7 @@ spring:
 
 api:
   security:
-    ignored: /api/v1/news,/api/v1/news/**,/swagger-ui/**,/v3/api-docs,/v3/api-docs/**
+    ignored: /api/v1/news,/api/v1/news/**,/swagger-ui/**,/v3/api-docs,/v3/api-docs/**,/index.html,/index.js
 
 logging:
   level:
