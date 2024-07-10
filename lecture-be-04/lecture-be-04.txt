@@ -1,0 +1,16 @@
+# lecture-be-04
+
+01. spring boot loading properties
+02. @Value
+03. spring boot logging
+04. logging properties
+05. logback-spring.xml
+
+
+# lecture-be-05
+
+01. production monitoring / actuator
+02. logging / metrics / tracing
+03. static code quality: checkstyle / pmd / findbugs / findbugs-sec / owasp dependency check
+04. junit5: e2e unit test with spring boot starter test and security / code coverage
+05. system integration testing / regression testing / automated testing, overview of bdd and cucumber-jvm
