@@ -1,0 +1,6 @@
+# lecture-fe-01
+
+01. nodejs, npm, npm init, npm install, npm run <script>
+02. HTML               : elements
+03. CSS                : by element, by class, by element id
+04. Java Script        : by element id

@@ -1,0 +1,14 @@
+{
+    "name": "lecture-fe-01",
+    "version": "1.0.0",
+    "description": "lecture-fe-01",
+    "scripts": {
+        "start": "http-server src -a localhost -p 8000"
+    },
+    "dependencies": {
+        "jquery": "^3.7.1"
+    },
+    "devDependencies": {
+        "http-server": "^14.1.1"
+    }
+}
