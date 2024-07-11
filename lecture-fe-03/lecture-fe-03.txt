@@ -1,0 +1,27 @@
+# lecture-fe-03
+
+01. Web Components     : custom elements, shadow dom, templates
+
+-------------------------------------------------------------------------------
+:: Assignment ::
+
+Provide a high level architecture and implement a simple bank account web application based on below requirements:
+
+- A user must log in to the application to perform any action
+- Application should have a predefined user say 'admin' with role 'ADMIN'
+- Admin can view/create/edit/delete any account
+- Account holder can view account information / balance / transactions after login
+- Account attributes are ID, PASSWORD, NAME, EMAIL, ADDRESS
+- Balance attributes are DATE, AMOUNT, DB/CR Indicator
+- Transaction attributes are DATE, DESCRIPTION, AMOUNT, DB/CR Indicator 
+
+Provide the git repository updated with below steps implemented.
+
+- Spring REST API based on Swagger Specification
+- Java code quality checks via Checkstyle, PMD, spotbugs & findsecbugs
+- Unit/E2E tests for Java code
+- Integrate frontend with Spring REST controllers
+- System Tests
+- Javascript code quality check via Eslint
+- Unit tests for JavaScript code
+-------------------------------------------------------------------------------

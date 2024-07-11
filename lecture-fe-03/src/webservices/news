@@ -1,0 +1,2 @@
+{"list": [{ "id": 1, "caption": "News 1", "details": "Details 1", "reporter": "Reporter 1", "reportedAt": 123 },
+        { "id": 2, "caption": "News 2", "details": "Details 2", "reporter": "Reporter 2", "reportedAt": 123 }]}
